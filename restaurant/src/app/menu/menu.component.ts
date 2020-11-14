@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params} from '@angular/router'
 import { Menu} from '../menu';
 import { MenuService} from "../menu.service";
+import { switchMap } from 'rxjs/operators';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl
+} from '@angular/forms';
 
 @Component({
   selector: 'app-menu',
@@ -11,9 +19,15 @@ import { MenuService} from "../menu.service";
 export class MenuComponent implements OnInit {
 
   menuitems: Menu[];
+  checkoutForm;
+  searchstring: string;
   
 
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+    this.checkoutForm = this.formBuilder.group({
+      name: ''
+    });
+  }
 
   ngOnInit(): void {
     this.menuService.getMenu()
@@ -26,5 +40,15 @@ export class MenuComponent implements OnInit {
 counter(i: number) {
   return new Array(i);
 }
+
+onSubmit(searchdata) {
+  this.searchstring = searchdata.name;
+  this.menuService.geFiltertMenu(this.searchstring)
+    .then((menuitems: Menu[])=>{this.menuitems = menuitems.map(menuitems =>{
+      return menuitems;
+    });
+  });
+  
+  }
 
 }

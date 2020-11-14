@@ -16,6 +16,7 @@ import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
+import { FilterMenuComponent } from './filter-menu/filter-menu.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
     MenuComponent,
     LoginComponent,
     RegisterComponent,
-    FieldErrorDisplayComponent
+    FieldErrorDisplayComponent,
+    FilterMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,10 @@ import { FieldErrorDisplayComponent } from './field-error-display/field-error-di
             path: 'menu', // the menu page
             component : MenuComponent
             },
+            {
+              path: 'menu/:searchstring', // the menu page
+              component : MenuComponent
+              },
             {
               path: 'login', // login user
               component : LoginComponent,

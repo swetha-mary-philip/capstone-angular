@@ -9,6 +9,7 @@ export class MenuService {
 
   private menuItemUrl  = 'http://localhost:3000/api/menu'; // for all menu collection
   private userLoginUrl  = 'http://localhost:4000/user/login'; 
+  private menuItemfilterUrl  = 'http://localhost:3000/api/menu/substance/search'; 
   private userRegisterUrl  = 'http://localhost:4000/user/signup'; 
   constructor(private http:HttpClient) {  }
 
@@ -16,6 +17,12 @@ export class MenuService {
 getMenu() : Promise<void | Menu[]>
 {
   return this.http.get(this.menuItemUrl).toPromise()
+  .then(response => response as Menu[]).catch(this.handleError);
+}
+
+geFiltertMenu(searchstring: string) : Promise<void | Menu[]>
+{
+  return this.http.get(this.menuItemfilterUrl + '/' + searchstring).toPromise()
   .then(response => response as Menu[]).catch(this.handleError);
 }
 
