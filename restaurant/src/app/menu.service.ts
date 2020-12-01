@@ -26,6 +26,43 @@ geFiltertMenu(searchstring: string) : Promise<void | Menu[]>
   .then(response => response as Menu[]).catch(this.handleError);
 }
 
+// to get the details of a single food
+getSingleMenu(menuId: string): Promise<void | Menu>
+{
+  return this.http.get(this.menuItemUrl + '/' + menuId).toPromise()
+  .then(response => response as Menu).catch(this.handleError);
+}
+
+ // POST operation to create a food
+ createFood(newfood: Menu): Promise<void | Menu>{
+  
+  return this.http.post(this.menuItemUrl, newfood)
+  .toPromise().then(response => {window.location.href = "/menu"})
+  .catch(this.handleError);
+}
+
+  // PUT operation to update menu item
+updateFood(newfood: Menu, menuId: string): Promise<void | Menu>{
+console.log(newfood);
+    return this.http.put(this.menuItemUrl + '/' + menuId, newfood)
+    .toPromise().then(response => {window.location.href = "/menu"})
+    .catch(this.handleError);
+  }
+
+  // to delete a food
+deleteFood(foodId: string): Promise<void>
+  {
+    var input = confirm("Please press OK to confirm DELETION."); // take confirmation on deletion from user;
+    if(input == true){
+    return this.http.delete(this.menuItemUrl + '/' + foodId).toPromise()
+    .then(response => {window.location.href = "/menu"}).catch(this.handleError);
+    }
+    else{
+      return;
+      //window.history.go(-1); // go back to the recipe details page
+    }
+  }
+
 // LOGIN/REGISTER
 
 tokendata: UserToken;

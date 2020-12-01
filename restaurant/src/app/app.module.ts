@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LocalStorageModule } from 'angular-local-storage';
 
 
 
@@ -17,6 +18,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 import { FilterMenuComponent } from './filter-menu/filter-menu.component';
+import { CartComponent } from './cart/cart.component';
+import { UpdateMenuComponent } from './update-menu/update-menu.component';
+import { TokenInterceptService } from './token-intercept.service';
+import { NewMenuComponent } from './new-menu/new-menu.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +35,12 @@ import { FilterMenuComponent } from './filter-menu/filter-menu.component';
     LoginComponent,
     RegisterComponent,
     FieldErrorDisplayComponent,
-    FilterMenuComponent
+    FilterMenuComponent,
+    CartComponent,
+    UpdateMenuComponent,
+    NewMenuComponent,
+    CheckoutComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +61,24 @@ import { FilterMenuComponent } from './filter-menu/filter-menu.component';
             component : MenuComponent
             },
             {
+              path: 'update/:_id', // to update menu details
+              component : UpdateMenuComponent,
+            },
+            {
               path: 'menu/:searchstring', // the menu page
               component : MenuComponent
+              },
+              {
+                path: 'new', // to create a new food receipe
+                component : NewMenuComponent,
+              },
+              {
+                path: 'contact', // raise an enquiry
+                component : ContactComponent,
+              },
+              {
+                path: 'checkout', // checkout
+                component : CheckoutComponent,
               },
             {
               path: 'login', // login user
@@ -59,10 +87,19 @@ import { FilterMenuComponent } from './filter-menu/filter-menu.component';
             {
               path: 'register', // register user
               component : RegisterComponent,
-            }
+            },
+            {
+              path: 'cart', // the cart page
+              component : CartComponent
+              }
     ])
   ],
-  providers: [{provide:APP_BASE_HREF, useValue: '/'}],
+  providers: [{provide:APP_BASE_HREF, useValue: '/'},{
+  provide: HTTP_INTERCEPTORS,
+   useClass: TokenInterceptService,
+   multi: true
+ }
+],
   bootstrap: [FrameworkComponent]
 })
 export class AppModule { }

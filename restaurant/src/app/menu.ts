@@ -6,15 +6,14 @@ export class Menu {
     description: string;
     imageurl: string;
     price: string;
-    ingredients: [ingredientsList];
-    createdate: Date;
-    modifieddate: Date;
+    ingredients: ingredientsList[];
+    //createdate: Date;
+    //modifieddate: Date;
     avg_rating: number;
 }
 
 export class ingredientsList{
 
-    _id: string;
     name: string;
 }
 

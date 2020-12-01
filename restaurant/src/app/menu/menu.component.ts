@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params} from '@angular/router'
 import { Menu} from '../menu';
 import { MenuService} from "../menu.service";
@@ -9,6 +9,7 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+
 
 @Component({
   selector: 'app-menu',
@@ -24,6 +25,7 @@ export class MenuComponent implements OnInit {
   
 
   constructor(private menuService: MenuService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+
     this.checkoutForm = this.formBuilder.group({
       name: ''
     });
@@ -50,5 +52,7 @@ onSubmit(searchdata) {
   });
   
   }
+
+  
 
 }
